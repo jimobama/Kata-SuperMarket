@@ -20,7 +20,8 @@ public class ItemGroup extends IError implements InterfaceModel<SaleItem>,java.i
     private String __saleProGroupID;
     private boolean __promoStatus;
     private String __descPromo;
-    private String __groupname;
+    private String __groupname;    
+    private ItemPromo __promo=null;
 
     
    public  ItemGroup() {
@@ -41,8 +42,23 @@ public class ItemGroup extends IError implements InterfaceModel<SaleItem>,java.i
         init(ids);
 
     }
-
-   
+  public void setPromotion(ItemPromo prom){  
+      this.__promo=prom;
+  }
+  public ItemPromo getPromotion(){
+      return this.__promo;
+  }
+  
+   public boolean hasPromotion(){
+      boolean okay=false;
+       if(this.__promo !=null){
+           okay=true;
+           this.__promoStatus=true;
+       }else{
+          this.__promoStatus=false; 
+       }
+      return okay;
+   }
 
     private void init(String id) {
         __descPromo = "";
@@ -53,6 +69,7 @@ public class ItemGroup extends IError implements InterfaceModel<SaleItem>,java.i
        
     }
       private void init() {
+          
         __descPromo = "";
         __groupname ="";
         __saleProGroupID =Helper.generateId(5);
@@ -185,4 +202,6 @@ public class ItemGroup extends IError implements InterfaceModel<SaleItem>,java.i
         return  __saleItemIDs;
       }
 
+   
+   
 }

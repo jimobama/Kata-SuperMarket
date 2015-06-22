@@ -10,7 +10,6 @@ import structures.ItemGroup;
 import java.util.ArrayList;
 import java.util.Iterator;
 import structures.SaleItem;
-import views.Console;
 
 /**
  *
@@ -19,7 +18,7 @@ import views.Console;
 public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup> {
 
     private static ArrayList<ItemGroup> __list;
-    private Database __db;
+    private final Database __db;
     private boolean __isDone=false;
 
     public  ItemGroupManager()
@@ -82,13 +81,10 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
         ItemGroup itemG = new ItemGroup(id);
        
         if (this.isExist(itemG)) {
-            for (Iterator<ItemGroup> it = __list.iterator(); it.hasNext();)
-            {
-                ItemGroup itemTemp= it.next();
-                
+            for (ItemGroup itemTemp : __list) {
                 if (itemTemp.getSaleProGroupID().trim().equalsIgnoreCase(id.trim()))
                 {
-                  itemG=itemTemp;
+                    itemG=itemTemp;
                     break;
                 }
             }
@@ -134,4 +130,26 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
         return okay;
     }
 
+    
+     public void update(ItemGroup group){
+        if(group !=null){
+          
+            if(this.isExist(group)){
+                
+                 for (int i=0 ;i < __list.size(); i++)
+                    {
+                        ItemGroup itemTemp= __list.get(i);
+
+                        if (itemTemp.getSaleProGroupID().trim().equalsIgnoreCase( group.getSaleProGroupID().trim()))
+                        {
+                          __list.set(i, group);
+                           this.__db.SaveObject(__list);
+                           break;
+                        }
+                   }
+                 
+            }
+        }
+     }
+        
 }
