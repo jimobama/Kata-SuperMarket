@@ -18,6 +18,23 @@ public class ItemPromo extends IError {
     private double __priceBasePromo;    
     private double __percentage;
     private double __itemBase;
+    private String __desc;
+
+    public double getPriceBasePromo() {
+        return __priceBasePromo;
+    }
+
+    public void setPriceBasePromo(double __priceBasePromo) {
+        this.__priceBasePromo = __priceBasePromo;
+    }
+
+    public String getDesc() {
+        return __desc;
+    }
+
+    public void setDesc(String __desc) {
+        this.__desc = __desc;
+    }
     
     public static final int   PERCENTAGE_BASE=1, ITEM_BASE=2,PRICE_BASE=3;
 

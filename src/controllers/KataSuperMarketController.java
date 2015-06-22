@@ -194,4 +194,8 @@ public class KataSuperMarketController implements InterfaceController {
         return this.__model.getSaleItemById(id);
       }
 
+    public boolean isUpdateItemGroup(ItemGroup __itemGroup) {
+       return this.__model.isUpdateItemGroup(__itemGroup);
+    }
+
 }

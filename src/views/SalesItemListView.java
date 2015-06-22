@@ -250,5 +250,10 @@ public class SalesItemListView extends Window {
       return controller.getStockById(stockID);
      }
 
+    boolean isUpdateItemGroup(ItemGroup __itemGroup) {
+        KataSuperMarketController controller =( KataSuperMarketController) this.__parent.getController();
+        return controller.isUpdateItemGroup( __itemGroup);
+     }
+
   
 }

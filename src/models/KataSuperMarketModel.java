@@ -170,4 +170,15 @@ public class KataSuperMarketModel extends IModel {
         return this.__saleManager.getItemById(id);
      }
 
+    public boolean isUpdateItemGroup(ItemGroup __itemGroup) {
+         if(__itemGroup !=null){
+             
+             this.__itemGroupManager.update(__itemGroup);
+             if(this.__itemGroupManager.isDone()){
+                 return true;
+             }
+         }
+         return false;
+    }
+
 }

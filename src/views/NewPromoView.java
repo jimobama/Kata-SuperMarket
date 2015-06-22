@@ -8,6 +8,7 @@ package views;
 import com.googlecode.lanterna.gui.Border;
 import com.googlecode.lanterna.gui.Component;
 import com.googlecode.lanterna.gui.GUIScreen;
+import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.Window;
 import com.googlecode.lanterna.gui.component.Button;
 import com.googlecode.lanterna.gui.component.EmptySpace;
@@ -203,10 +204,11 @@ class NewPromoView extends Window {
      }
 
     private void onAddPromoClicked() {
-        
+         this.close();
         ItemPromo promo = new ItemPromo(this.lblPromoId.getText());
          String message="Invalid entry in Number of items for promotion field";
          promo.setType(PromoType);
+        
         try{
             promo.setForEachMulitpleNo(Integer.parseInt(this.__txtApplyNumberOfItems.getText()));
             switch(promo.getType()){
@@ -237,13 +239,15 @@ class NewPromoView extends Window {
         //Check if the promo items valid
         
         if(promo.validated()){
-            //if the itempromo is valid 
-            
+            //if the itempromo is valid           
+           this.__parent.updateCreatePromotion(promo);
+           this.__parent.getOwner().showWindow(this.__parent);
+           return ;
         }else{
             IView.report(this.getOwner(),1,promo.getError());  
         }
         
-        
+        this.__parent.getOwner().showWindow(this,Position.CENTER); 
      }
     
     

@@ -132,6 +132,7 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
 
     
      public void update(ItemGroup group){
+         this.__isDone=false;
         if(group !=null){
           
             if(this.isExist(group)){
@@ -144,6 +145,7 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
                         {
                           __list.set(i, group);
                            this.__db.SaveObject(__list);
+                           this.__isDone=true;
                            break;
                         }
                    }

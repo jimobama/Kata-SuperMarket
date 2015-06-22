@@ -149,11 +149,13 @@ public class ItemGroupListView extends Window {
         
         String groupid= this.__txtGroupReference.getText();
         ItemGroup _itemGroup = this.__parent.getItemGroupByID(groupid);
-           this.close();
-        if(_itemGroup !=null)
-        {
+        this.close();
+        if(_itemGroup !=null)        {
             //Do something good here
             this.__parent.setSelectedItemGroup(_itemGroup);
+            this.__parent.getOwner().showWindow(this.__parent);
+            return ;
+            
         }else{
             IView.report(this.__parent.getOwner(),1, "Enter a valid group refence number from the table above");
            
@@ -169,8 +171,7 @@ public class ItemGroupListView extends Window {
          if(_itemGroup!=null){
                 SaleGroupView saleGroupView= new  SaleGroupView("Sale Item Group List",this);
                 saleGroupView.onGroupEventLoad(_itemGroup);
-                this.__parent.getOwner().showWindow(saleGroupView);
-                
+                this.__parent.getOwner().showWindow(saleGroupView);                
          }else{
              IView.report(this.__parent.getOwner(),1, "Enter a valid group refence number from the table above"); 
               this.__parent.getOwner().showWindow(this);
@@ -188,5 +189,9 @@ public class ItemGroupListView extends Window {
         
         return this.__parent.getStockItemByID(stockID);
       }
+
+    boolean isUpdateItemGroup(ItemGroup __itemGroup) {
+        return this.__parent.isUpdateItemGroup(__itemGroup);
+    }
     
 }

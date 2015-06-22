@@ -6,6 +6,7 @@ package views;
 import com.googlecode.lanterna.gui.component.Button;
 import controllers.InterfaceController;
 import controllers.KataSuperMarketController;
+import structures.ItemGroup;
 
 /**
  *
@@ -82,6 +83,10 @@ public class KataSuperMarketView extends KataSuperMarketCommandView implements I
     @Override
     public InterfaceController getController() {
         return this.__controller;
+    }
+
+    boolean isUpdateItemGroup(ItemGroup __itemGroup) {
+       return  this.__controller.isUpdateItemGroup(__itemGroup);
     }
 
 }
