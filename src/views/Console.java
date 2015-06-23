@@ -88,4 +88,9 @@ public class Console {
     public static void exit(int code) {
         System.exit(code);
     }
+
+    static void WriteLn(int counter) {
+        
+        WriteLn(""+counter);
+         }
 }

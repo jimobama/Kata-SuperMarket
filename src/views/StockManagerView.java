@@ -76,9 +76,11 @@ class StockManagerView extends StockItemCommandView implements IView {
     @Override
     protected void onViewClick() {
 
-         this.getOwner().getActiveWindow().close();
+        if( this.__parentView !=null){
+         this.close();
+        }
         StockItemListView _stockView = new StockItemListView("Stock Database ", this);       
-        _stockView.show();
+       _stockView.show();
         
 
     }

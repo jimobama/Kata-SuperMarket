@@ -12,6 +12,7 @@ import com.googlecode.lanterna.gui.GUIScreen;
 import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.Window;
 import com.googlecode.lanterna.gui.component.Button;
+import com.googlecode.lanterna.gui.component.EmptySpace;
 import com.googlecode.lanterna.gui.component.Panel;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -44,6 +45,7 @@ public abstract class KataSuperMarketCommandView extends Window {
 
         screen.startScreen();
         guiScreen.showWindow(this,Position.CENTER);
+        this.getOwner().getScreen().resizePending();
         screen.stopScreen();
 
     }
@@ -51,74 +53,58 @@ public abstract class KataSuperMarketCommandView extends Window {
     public KataSuperMarketCommandView(String title) {
         super(title);
         pnlMain = new Panel(new Border.Invisible(), Panel.Orientation.HORISONTAL);
-        pnlLeft = new Panel(new Border.Bevel(true), Panel.Orientation.VERTICAL);
+        pnlLeft = new Panel(Panel.Orientation.VERTICAL);
         pnlRight = new Panel(Panel.Orientation.VERTICAL);
 
        
         this._initGUI();
     }
 
-    protected void _initGUI() {
+    protected final void _initGUI() {
         this.pnlMain.addComponent(this.__menuGui());   
+        this.addComponent(new EmptySpace());
         this.addComponent(this.pnlMain);
+        this.addComponent(new EmptySpace());
     }
 
 
   
 
     private Panel __menuGui() {
-        this.pnlLeft.setTitle("Kata Super Market Main Screen");
+      //  this.pnlLeft.setTitle("Kata Super Market Main Screen");
         
-        btnStockManager = new Button("Stock Manager", new Action() {
-
-            @Override
-            public void doAction() {
-                onStockManagerClicked();
-            }
-
+        btnStockManager = new Button("Stock Manager", () -> {
+            onStockManagerClicked();
         });
-        btnSaleManager = new Button("Sale Manager", new Action() {
-
-            @Override
-            public void doAction() {
-                onSaleManagerClicked();
-            }
-
+        btnSaleManager = new Button("Sale Manager", () -> {
+            onSaleManagerClicked();
         });
 
-        btnApplication = new Button("Exit Application", new Action() {
-
-            @Override
-            public void doAction() {
-                onExitWindow();
-            }
-
+        btnApplication = new Button("Exit Application", () -> {
+            onExitWindow();
         });
 
-        btnPromoManager = new Button("My Shopping Basket", new Action() {
-
-            @Override
-            public void doAction() {
-                onShoppingBasketClick();
-            }
-
+        btnPromoManager = new Button("Shopping Center", () -> {
+            onShoppingCenterClick();
         });
+        this.pnlLeft.addComponent(new EmptySpace());
         this.pnlLeft.addComponent(btnStockManager);
+         this.pnlLeft.addComponent(new EmptySpace());
         this.pnlLeft.addComponent(btnSaleManager);
+        this.pnlLeft.addComponent(new EmptySpace());
         this.pnlLeft.addComponent(btnPromoManager);
+        this.pnlLeft.addComponent(new EmptySpace());
         this.pnlLeft.addComponent(btnApplication);
+        this.pnlLeft.addComponent(new EmptySpace());
         return pnlLeft;
     }
 
-    protected void update() {
-
-        
-    }
+  
 
     abstract protected void onStockManagerClicked();
     abstract protected void onExitWindow();
     abstract protected void onSaleManagerClicked();
-    abstract protected void onShoppingBasketClick();
+    abstract protected void onShoppingCenterClick();
 
    
 }

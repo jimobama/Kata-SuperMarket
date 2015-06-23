@@ -15,7 +15,7 @@ public class ItemBasket {
     private int __noOfItems;
     private  double __currentPrices;
     
-    ItemBasket(){
+   public  ItemBasket(){
         this.__itemId="";
         this.__currentPrices=0.0;
         this.__noOfItems=0;

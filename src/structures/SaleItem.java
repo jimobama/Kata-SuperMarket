@@ -22,7 +22,7 @@ public class SaleItem extends IError   {
     private double __weight;
 
    public  SaleItem() {
-        this.__saleID = Helper.generateId("SL", 10);
+        this.__saleID = Helper.generateId("SL", 5);
     }
 
    public  SaleItem(String saleID) {

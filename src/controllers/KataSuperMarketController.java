@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import models.KataSuperMarketModel;
 import views.KataSuperMarketView;
 import models.IModel;
+import structures.ItemBasket;
 import structures.ItemGroup;
 import structures.SaleItem;
 import structures.StockItem;
@@ -43,6 +44,7 @@ public class KataSuperMarketController implements InterfaceController {
             //language the view for the user
 
             this.__view.setModel(__model);
+            
             this.__view.show();
         }
 
@@ -196,6 +198,18 @@ public class KataSuperMarketController implements InterfaceController {
 
     public boolean isUpdateItemGroup(ItemGroup __itemGroup) {
        return this.__model.isUpdateItemGroup(__itemGroup);
+    }
+
+    public void addBasketItem(ItemBasket item) {
+        if(this.__model.isBasketItemUpdate(item)){
+            IView.report(this.__view.getOwner(),0,"The Basket Item as be successfully added and updated");
+        }else{
+             IView.report(this.__view.getOwner(),1,this.__model.getError());
+        }
+     }
+
+    public int getBasketCount() {
+    return this.__model.getBasketCount();
     }
 
 }

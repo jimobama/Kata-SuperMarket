@@ -3,6 +3,8 @@
  */
 package views;
 
+import com.googlecode.lanterna.gui.GUIScreen;
+import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.component.Button;
 import controllers.InterfaceController;
 import controllers.KataSuperMarketController;
@@ -49,7 +51,7 @@ public class KataSuperMarketView extends KataSuperMarketCommandView implements I
     @Override
     public void show() {
         super.launch();
-        ;
+      
     }
 
     @Override
@@ -76,8 +78,12 @@ public class KataSuperMarketView extends KataSuperMarketCommandView implements I
     }
 
     @Override
-    protected void onShoppingBasketClick() {
-        this.getOwner().setTitle("Sale Promotion Screen");
+    protected void onShoppingCenterClick() {
+        this.getOwner().setTitle("Shopping Center");
+        this.getOwner().getActiveWindow().close();
+        ShoppingCenterView shoppingCenter= new ShoppingCenterView("Available Items ",this);
+        this.getOwner().showWindow(shoppingCenter,Position.NEW_CORNER_WINDOW);
+        
     }
 
     @Override

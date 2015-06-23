@@ -10,8 +10,9 @@ import structures.StockItem;
 import controllers.InterfaceController;
 import controllers.KataSuperMarketController;
 import java.util.ArrayList;
+import structures.ItemBasket;
 import structures.ItemGroup;
-import views.Console;
+
 
 /**
  *
@@ -23,11 +24,13 @@ public class KataSuperMarketModel extends IModel {
     private final StockManager __stockManager;
     private final SaleManager __saleManager;
     private final ItemGroupManager __itemGroupManager;
+    private final BasketManager __backetManager;
 
     public KataSuperMarketModel() {
         this.__stockManager = new StockManager(null);
         this.__saleManager = new SaleManager(null);
         __itemGroupManager= new  ItemGroupManager();
+        __backetManager= new BasketManager();
     }
 
     @Override
@@ -179,6 +182,28 @@ public class KataSuperMarketModel extends IModel {
              }
          }
          return false;
+    }
+
+    public boolean isBasketItemUpdate(ItemBasket item) {
+       
+        boolean okay=false;
+        if(this.__backetManager.isExist(item))
+        {
+           this.__backetManager.update(item,1); 
+           if(this.__backetManager.isDone()){
+               okay=true;
+           }
+        }else{
+            this.__backetManager.add(item);
+             if(this.__backetManager.isDone()){
+               okay=true;
+           }
+        }
+        return okay;
+     };
+
+    public int getBasketCount() {
+    return this.__backetManager.size();
     }
 
 }
