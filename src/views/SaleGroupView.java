@@ -211,6 +211,7 @@ public class SaleGroupView extends Window {
         this.close();
        NewPromoView promoView = new NewPromoView("Create New Promo",this); 
        if(this.__parent !=null){
+           promoView.updatePromotionView(this.__itemGroup.getPromotion());
            this.__parent.getOwner().showWindow( promoView, GUIScreen.Position.CENTER);
        }
     }

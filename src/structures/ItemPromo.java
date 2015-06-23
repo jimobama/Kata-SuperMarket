@@ -19,6 +19,15 @@ public class ItemPromo extends IError {
     private double __percentage;
     private double __itemBase;
     private String __desc;
+    
+   public ItemPromo(String text) {
+        this.__promoID=text;
+        this.__forEachMulitpleNo=1;
+        __type =PERCENTAGE_BASE;
+        this.__priceBasePromo=0;
+        __percentage= 0.0;        
+    }
+    
 
     public double getPriceBasePromo() {
         return __priceBasePromo;
@@ -38,13 +47,7 @@ public class ItemPromo extends IError {
     
     public static final int   PERCENTAGE_BASE=1, ITEM_BASE=2,PRICE_BASE=3;
 
-    public ItemPromo(String text) {
-        this.__promoID=text;
-        this.__forEachMulitpleNo=1;
-        __type =PERCENTAGE_BASE;
-        this.__priceBasePromo=0;
-        __percentage= 0.0;        
-    }
+ 
      
     //This validate the ItemPromo
 public boolean validated()

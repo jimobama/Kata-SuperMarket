@@ -164,7 +164,36 @@ class NewPromoView extends Window {
         }
         
       }
-
+ void setPromotionType( ItemPromo p) {
+     if(p !=null){
+        this.__pnlPromo.removeAllComponents();
+        PromoType=p.getType();
+        switch(p.getType()){
+            case ItemPromo.ITEM_BASE:
+                
+                this.__lblPromoType.setText("Item Base");
+                this.showItemBasePromo();
+                 this.__txtItemBase.setText(""+ (int)p.getItemBase());
+                
+                break;
+            case ItemPromo.PERCENTAGE_BASE:
+                this.__lblPromoType.setText("Percentage Base");
+                this.showPercentageBasePromo();
+               this.__txtPercentage.setText(""+p.getPercentage());
+                
+                break;
+            case ItemPromo.PRICE_BASE:
+                this.__lblPromoType.setText("Price Base");
+                 this.showPriceBasePromotion();
+                this.__txtPriceBase.setText(""+p.getPriceBase());
+               
+                break;                
+            default:
+                this.__lblPromoType.setText("----");
+           }
+         }
+      }
+ 
     private void showItemBasePromo() {
        TerminalSize lblsize = new TerminalSize(20,2);
        Panel row1= new Panel(Panel.Orientation.HORISONTAL);
@@ -206,10 +235,12 @@ class NewPromoView extends Window {
     private void onAddPromoClicked() {
          this.close();
         ItemPromo promo = new ItemPromo(this.lblPromoId.getText());
-         String message="Invalid entry in Number of items for promotion field";
+        String message="";
+       
          promo.setType(PromoType);
         
         try{
+             message="Invalid entry in Number of items for promotion field";
             promo.setForEachMulitpleNo(Integer.parseInt(this.__txtApplyNumberOfItems.getText()));
             switch(promo.getType()){
                case ItemPromo.ITEM_BASE:
@@ -226,16 +257,13 @@ class NewPromoView extends Window {
                     message="Enter a valid price for the number of items when promotion criteria is met";
                     promo.setPriceBase(Double.parseDouble(this.__txtPriceBase.getText()));
                    break;
-           default:
-                message="";
-           break;
-           }
+          }
          
         }catch(NumberFormatException err){
             IView.report(this.getOwner(),1,  message);
             return ;
         }
-       
+         
         //Check if the promo items valid
         
         if(promo.validated()){
@@ -249,6 +277,16 @@ class NewPromoView extends Window {
         
         this.__parent.getOwner().showWindow(this,Position.CENTER); 
      }
+
+    void updatePromotionView(ItemPromo p) {
+     
+         if(p !=null){
+             this.lblPromoId.setText(p.getPromoID());
+             this.__txtApplyNumberOfItems.setText(p.getForEachMulitpleNo()+"");
+            this.setPromotionType(p);
+         }
+        
+    }
     
     
 }
