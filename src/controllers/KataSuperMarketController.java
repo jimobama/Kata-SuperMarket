@@ -212,4 +212,29 @@ public class KataSuperMarketController implements InterfaceController {
     return this.__model.getBasketCount();
     }
 
+    public ArrayList<ItemBasket> getItemBasket() {
+        
+        return this.__model.getItemBasket();
+     }
+
+    public boolean isItemOnPromotion(String saleID) {
+        
+        return this.__model.isItemOnPromotion(saleID);
+      }
+
+    public String getGroupIdBySaleItemId(String saleItemId) {
+        
+        return this.__model.getGroupIdBySaleItemID(saleItemId);
+      }
+
+    public boolean isDeleteStockById(String stockID) {
+        return this.__model.isStockItemDeletedByID(stockID);
+    }
+
+    public boolean isSaleItemDeletedById(String itemRef) {
+        
+        return this.__model.isSaleItemDeletedById(itemRef);
+       }
+    
+
 }

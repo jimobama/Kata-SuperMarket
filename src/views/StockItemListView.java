@@ -6,10 +6,12 @@
 package views;
 
 import com.googlecode.lanterna.gui.Action;
+import com.googlecode.lanterna.gui.Border;
 import com.googlecode.lanterna.gui.Component;
 import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.Window;
 import com.googlecode.lanterna.gui.component.Button;
+import com.googlecode.lanterna.gui.component.EmptySpace;
 import com.googlecode.lanterna.gui.component.Label;
 import com.googlecode.lanterna.gui.component.Panel;
 import com.googlecode.lanterna.gui.component.Table;
@@ -28,32 +30,24 @@ public class StockItemListView extends Window {
     private Table __tblViews;
     private StockManagerView __parent;
     private TextBox __txtStockID;
+    private Button __btnDelete;
 
     public StockItemListView(String title, StockManagerView parent) {
         super(title);
         this.__parent = parent;
-        this.__tblViews = new Table(7);
+        this.__tblViews = new Table(6);
         this.__tblViews.setColumnPaddingSize(5);
-
-        Component[] components = new Component[7];
-
-        components[0] = new Label("S/N");
-        components[1] = new Label("Stock Number");
-        components[2] = new Label("UIN");
-        components[3] = new Label("Stock Level");
-        components[4] = new Label("Cost Of Item");
-        components[5] = new Label("Description");
-        components[6] = new Label("Date Added");
-
-        __tblViews.addRow(components);
-        this.addComponent(__tblViews);
+       
         this.loadView();
+         this.addComponent(new EmptySpace());
+        this.addComponent(__tblViews);
+         this.addComponent(new EmptySpace());
         this.addComponent(this.__nav());
 
     }
 
     private Panel __nav() {
-        Panel panel = new Panel(Panel.Orientation.HORISONTAL);
+        Panel panel = new Panel(new Border.Standard(),Panel.Orientation.HORISONTAL);
         Button btnBack = new Button("Back", new Action() {
 
             @Override
@@ -64,6 +58,10 @@ public class StockItemListView extends Window {
 
         });
         
+            
+       
+       
+        
         
         Button btnAddToSale = new Button("Add To Sale",new Action(){
 
@@ -73,12 +71,18 @@ public class StockItemListView extends Window {
             }
             
         });
+       this.__btnDelete = new Button("Delete", ()-> {
+
+                onDeleteClicked();
+         
+        });
 
         panel.addComponent(btnBack);
         panel.addComponent(new Label(" StockID:"));
         this.__txtStockID= new TextBox("",40);
         panel.addComponent(this.__txtStockID);
         panel.addComponent(btnAddToSale);
+        panel.addComponent(this.__btnDelete);
         return panel;
     }
 
@@ -88,21 +92,22 @@ public class StockItemListView extends Window {
     }
 
     private void loadView() {
+        this.initialTableHeaders();
         KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
 
         ArrayList<StockItem> list = (ArrayList<StockItem>) controller.getStockList();
         if (list != null) {
 
             for (int i = 0; i < list.size(); i++) {
-                Component[] components = new Component[7];
+                Component[] components = new Component[6];
                 StockItem item = list.get(i);
                 components[0] = new Label(String.valueOf(i + 1));
                 components[1] = new Label(item.getStockId());
-                components[2] = new Label(item.getId());
+                components[2] = new Label(item.getName());
                 components[3] = new Label(String.valueOf(item.getNoOfStocks()));
                 components[4] = new Label(String.valueOf("£" + item.getCostForEach()));
                 components[5] = new Label(item.getDesc());
-                components[6] = new Label("-- -- --");
+                
                 this.__tblViews.addRow(components);
 
             }
@@ -156,6 +161,37 @@ public class StockItemListView extends Window {
         return  bResult = controller.addSaleItemEvent(item);
         
     }
+
+    private void onDeleteClicked() {
+        //delete the item with item number
+        this.close();
+         String stockID= this.__txtStockID.getText();
+         KataSuperMarketController controller=( KataSuperMarketController) this.__parent.getController();
+         if(controller.isDeleteStockById(stockID))
+         {
+             IView.report(this.__parent.getOwner(), 0, "Stock Item as be successfully removed");
+         }else{
+             IView.report(this.__parent.getOwner(), 0, "Invalid stock item number"); 
+         }
+         this.loadView();
+         this.__parent.getOwner().showWindow(this);
+    }
+
+    private void initialTableHeaders() {
+        this.__tblViews.removeAllRows();
+        Component[] components = new Component[6];
+        components[0] = new Label("S/N");
+        components[1] = new Label("Stock Number");
+        components[2] = new Label("Item Name");
+        components[3] = new Label("Stock Level");
+        components[4] = new Label("Cost Of Item");
+        components[5] = new Label("Description");       
+
+        __tblViews.addRow(components);
+        
+     }
+    
+    
     
 }
 

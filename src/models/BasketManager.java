@@ -17,7 +17,7 @@ import structures.ItemBasket;
 public class BasketManager extends IError implements InterfaceModel<ItemBasket>{
 
     private boolean __isDone=false;
-   private final   ArrayList<ItemBasket> __list;
+   private   ArrayList<ItemBasket> __list;
     public  BasketManager(){
          __isDone=false;
          __list= new  ArrayList<>();
@@ -125,6 +125,12 @@ public class BasketManager extends IError implements InterfaceModel<ItemBasket>{
             return 0;
         }
      }
-    
+
+    ArrayList<ItemBasket> getList() {
+        if( this.__list ==null){
+             this.__list = new ArrayList<>();   
+        }
+        return this.__list ;
+       }
     
 }

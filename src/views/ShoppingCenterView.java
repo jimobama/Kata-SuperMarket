@@ -140,12 +140,9 @@ class ShoppingCenterView extends Window {
                 SaleItem _item = list.get(i);
                 cols[_counter] = this.createSalePanelView(_item);
                 _counter++;
-               
-         
-
+              
             }
             this.__tblSaleItems.addRow(cols);
-          
 
         }
 
@@ -254,8 +251,38 @@ class ShoppingCenterView extends Window {
       }
 
     private void onViewBasketClicked() {
-        
+        //This load the basket view with complement calculations of items promos and percentages
+        this.close();
+        BasketView _basketView= new BasketView("Basket Items ",this);
+        this.__parent.getOwner().showWindow(_basketView);
         
      }
+
+    ArrayList<ItemBasket> getItemBasket() {
+         KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+        return controller.getItemBasket();
+     }
+
+    SaleItem getSaleItemById(String itemId) {
+        KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+       return controller .getSaleItemById(itemId);
+    }
+
+    StockItem getStockItemById(String stockID) {
+        
+         KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+         return controller.getStockById(stockID);
+     }
+
+    boolean isItemOnPromotion(String itemB) {
+         KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+         
+         return controller.isItemOnPromotion( itemB);
+     }
+
+    String getGroupIdBySaleItemId(String saleItemId) {
+          KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+           return controller.getGroupIdBySaleItemId(saleItemId);
+       }
 
 }

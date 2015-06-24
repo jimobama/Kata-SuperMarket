@@ -153,5 +153,39 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
             }
         }
      }
+
+    boolean isItemInGroupOnPromotion(String saleID) {
+        
+        ItemGroup group = this.getItemGroupBySaleId(saleID);
+        if(group !=null)
+             return group.hasPromotion();
+        return false;
+     }
+
+    private ItemGroup getItemGroupBySaleId(String saleID) {
+        ItemGroup result=null;
+        if(__list !=null){
+            
+            for(Iterator<ItemGroup> it= __list.iterator(); it.hasNext();){
+                
+                ItemGroup group = it.next();
+                 if(group.isExist(new SaleItem(saleID)))
+                 {
+                    result=  group;
+                    break;
+                 }
+            }
+                
+        }
+        return result;
+      }
+
+    String getGroupIdBySaleId(String saleItemId) {
+        ItemGroup group = getItemGroupBySaleId(saleItemId);
+        if(group !=null){
+            return group.getSaleProGroupID();
+        }
+        return null;        
+    }
         
 }

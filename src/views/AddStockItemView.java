@@ -11,9 +11,11 @@ import com.googlecode.lanterna.gui.GUIScreen;
 import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.Window;
 import com.googlecode.lanterna.gui.component.Button;
+import com.googlecode.lanterna.gui.component.EmptySpace;
 import com.googlecode.lanterna.gui.component.Label;
 import com.googlecode.lanterna.gui.component.Panel;
 import com.googlecode.lanterna.gui.component.TextBox;
+import com.googlecode.lanterna.terminal.TerminalSize;
 
 import services.Helper;
 import structures.StockItem;
@@ -26,7 +28,7 @@ public class AddStockItemView extends Window {
 
     private final StockManagerView __parent;
     private final TextBox __txtItemName;
-    private final TextBox __txtItemID;
+    private final Label __lblStockItemRef;
     private final TextBox __txtaDesc;
     private final TextBox __txtStockLevelNumber;
     private final TextBox __txtCost;
@@ -38,27 +40,69 @@ public class AddStockItemView extends Window {
         __parent = (StockManagerView) window;
 
         //initial gui
+        TerminalSize lblSize = new TerminalSize(20,1);        
         form = new Panel(Panel.Orientation.VERTICAL);
-        __txtItemID = new TextBox("", 40);
+        form.addComponent(new EmptySpace());
+        
+        //row01
+        Panel row01= new Panel(Panel.Orientation.HORISONTAL);
+        __lblStockItemRef = new Label("");
         Label lblNumber = new Label("Item Number");
+        lblNumber.setAlignment(Component.Alignment.TOP_LEFT);
+        lblNumber.setPreferredSize(lblSize);
         lblNumber.setAlignment(Component.Alignment.CENTER);
-        form.addComponent(lblNumber);
-        form.addComponent(__txtItemID);
+        row01.addComponent(lblNumber);
+        row01.addComponent(__lblStockItemRef);
+        form.addComponent(row01);
+        
 
+        //row 2
+         Panel row02= new Panel(Panel.Orientation.HORISONTAL);
+         form.addComponent(new EmptySpace());
         __txtItemName = new TextBox("", 40);
-        form.addComponent(new Label("Item Name"));
-        form.addComponent(__txtItemName);
+        Label lblItemName=new Label("Item Name");
+        lblItemName.setAlignment(Component.Alignment.TOP_LEFT);
+        lblItemName.setPreferredSize(lblSize);        
+        row02.addComponent(lblItemName);
+        
+        row02.addComponent(__txtItemName);
+        form.addComponent(row02);
+        
 
-        form.addComponent(new Label("Description"));
+        //row03
+         Panel row03= new Panel(Panel.Orientation.HORISONTAL);
+         form.addComponent(new EmptySpace());
+          Label lblDesc=new Label("Description");
+         lblDesc.setAlignment(Component.Alignment.TOP_LEFT);
+         lblDesc.setPreferredSize(lblSize); 
+        
+         row03.addComponent(lblDesc);
         __txtaDesc = new TextBox("Nil", 40);
-        form.addComponent(this.__txtaDesc);
+         row03.addComponent(this.__txtaDesc);
+         form.addComponent(row03);
 
-        form.addComponent(new Label("Number of item to stock"));
-        __txtStockLevelNumber = new TextBox("", 40);
-        form.addComponent(__txtStockLevelNumber);
-        form.addComponent(new Label("Cost of Item"));
+         //row04
+          Panel row04= new Panel(Panel.Orientation.HORISONTAL);
+          form.addComponent(new EmptySpace());
+           Label lblNoStock=new Label("Stock Number ");
+         lblNoStock.setAlignment(Component.Alignment.TOP_LEFT);
+         lblNoStock.setPreferredSize(lblSize); 
+         
+        row04.addComponent(lblNoStock);
+        __txtStockLevelNumber = new TextBox("", 40);        
+        row04.addComponent(__txtStockLevelNumber);
+        form.addComponent(row04);
+         
+        //row05
+        Panel row05= new Panel(Panel.Orientation.HORISONTAL);
+        form.addComponent(new EmptySpace());
+          Label lblCost=new Label("Cost of Item");
+         lblCost.setAlignment(Component.Alignment.TOP_LEFT);
+         lblCost.setPreferredSize(lblSize); 
+         row05.addComponent(lblCost);
         __txtCost = new TextBox("", 20);
-        form.addComponent(this.__txtCost);
+        row05.addComponent(this.__txtCost);
+        form.addComponent(row05);
 
         Button btnAdd = new Button("Add", new Action() {
             @Override
@@ -79,21 +123,26 @@ public class AddStockItemView extends Window {
 
         });
 
-        Panel pnlButtons = new Panel(Panel.Orientation.HORISONTAL);
-        pnlButtons.addComponent(btnClose);
-        pnlButtons.addComponent(btnAdd);
-
-        form.addComponent(pnlButtons);
-
-        this.__txtItemID.setText(Helper.generateId(10));
-        this.__txtItemID.setEditPosition(0);
+        Panel row06 = new Panel(Panel.Orientation.HORISONTAL);
+        form.addComponent(new EmptySpace());
+        Label lblEmpty= new Label("");
+        lblEmpty.setAlignment(Component.Alignment.TOP_LEFT);
+        lblEmpty.setPreferredSize(lblSize);
+         row06.addComponent(lblEmpty);
+        row06.addComponent(btnClose);
+        row06.addComponent(btnAdd);
+       
+        form.addComponent(row06);
+        form.addComponent(new EmptySpace());
+        this.__lblStockItemRef.setText(Helper.generateId(5));
+       
 
         this.addComponent(form);
 
     }
 
     protected void addEventTrigger() {
-        StockItem item = new StockItem(this.__txtItemID.getText());
+        StockItem item = new StockItem(this.__lblStockItemRef.getText());
         item.setName(this.__txtItemName.getText());
         item.setDesc(this.__txtaDesc.getText());
 

@@ -154,9 +154,15 @@ public class SalesItemListView extends Window {
         Button btnAddItemToGroup= new Button("Add Item", () -> {
             onAddItemToGroupClicked();
         });
+        
+         Button btnDeleteItem= new Button("Delete Item", () -> {
+            onDeleteItemClicked();
+        });
+         
         row3.addComponent(btnBack);
         row3.addComponent(btnCreateNewPromo);
         row3.addComponent(btnAddItemToGroup);
+        row3.addComponent(btnDeleteItem);
         panel.addComponent(row3);
         return panel;
     }
@@ -253,6 +259,20 @@ public class SalesItemListView extends Window {
     boolean isUpdateItemGroup(ItemGroup __itemGroup) {
         KataSuperMarketController controller =( KataSuperMarketController) this.__parent.getController();
         return controller.isUpdateItemGroup( __itemGroup);
+     }
+
+    private void onDeleteItemClicked() {
+        this.close();
+        String itemRef= this.__txtRef.getText();
+        KataSuperMarketController controller =( KataSuperMarketController) this.__parent.getController();
+        if(controller.isSaleItemDeletedById(itemRef)){
+            IView.report(this.__parent.getOwner(),0, "Sale Item as be removed from sale list");
+        }else{
+            IView.report(this.__parent.getOwner(),1, "Invalid item id to delete");
+        }
+        
+        this.__parent.getOwner().showWindow(this, Position.CENTER);
+         
      }
 
   

@@ -206,4 +206,35 @@ public class KataSuperMarketModel extends IModel {
     return this.__backetManager.size();
     }
 
+    public ArrayList<ItemBasket> getItemBasket() {
+        return this.__backetManager.getList();
+     }
+
+    public boolean isItemOnPromotion(String saleID) {        
+        return this.__itemGroupManager.isItemInGroupOnPromotion(saleID);
+      }
+
+    public String getGroupIdBySaleItemID(String saleItemId) {
+        return this.__itemGroupManager.getGroupIdBySaleId(saleItemId);
+     }
+
+    public boolean isStockItemDeletedByID(String stockID) {
+        this.__stockManager.remove(new StockItem(stockID));
+        if(this.__stockManager.isDone())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isSaleItemDeletedById(String itemRef) {
+        this.__saleManager.remove(new SaleItem(itemRef));
+        if(this.__saleManager.isDone())
+        {
+            return true;
+        }
+        return false;
+    }
+    
+
 }

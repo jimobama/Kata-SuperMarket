@@ -44,6 +44,7 @@ public class AddSaleView extends Window {
     //need buttons for additing and going back to the parent windows
     private Button __btnBack;
     private Button __btnAdd;
+   // private Button __btnDelete;
 
     //
     public AddSaleView(StockItem item, Window parent) {
@@ -149,10 +150,13 @@ public class AddSaleView extends Window {
             }
 
         });
+    
+         
 
         //add to panel
         row6.addComponent(this.__btnBack);
         row6.addComponent(this.__btnAdd);
+      
         pnlSaleFields.addComponent(row6);
         this.__pnlLeft.addComponent(pnlSaleFields);
 
@@ -254,5 +258,8 @@ public class AddSaleView extends Window {
         return true;
         
     }
+
+    private void onDeleteClicked() {
+      }
 
 }

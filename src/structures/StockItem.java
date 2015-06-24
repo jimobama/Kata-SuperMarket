@@ -28,7 +28,7 @@ public class StockItem extends Item implements java.io.Serializable {
         super(name, Desc);//call the supper default constructor
         this.__noOfStocks = noOfStocks;
         this.__costForEach = __cost;
-        __stockId=Helper.generateId(10);
+        __stockId=Helper.generateId(5);
 
     }
 
