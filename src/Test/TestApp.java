@@ -28,7 +28,7 @@ public class TestApp {
 
     private static void run() {
         KataSuperMarketController controller;
-        controller = new KataSuperMarketController(new KataSuperMarketModel(), new KataSuperMarketView("Kata Super Market 0.1 "));
+        controller = new KataSuperMarketController(new KataSuperMarketModel(), new KataSuperMarketView("SuperMarket "));
         controller.run();
         //System.out.println( Helper.generateId(10));
 
