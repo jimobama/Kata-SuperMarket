@@ -38,11 +38,7 @@ class StockManagerView extends StockItemCommandView implements IView {
         __title = title;
     }
 
-    @Override
-    public void setModel(Object model) {
-
-    }
-
+  
     @Override
     public void show() {
         this.__parentView.getOwner().getActiveWindow().close();
