@@ -11,6 +11,7 @@ import com.googlecode.lanterna.gui.Component;
 import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.Window;
 import com.googlecode.lanterna.gui.component.Button;
+import com.googlecode.lanterna.gui.component.EmptySpace;
 import com.googlecode.lanterna.gui.component.Label;
 import com.googlecode.lanterna.gui.component.Panel;
 import com.googlecode.lanterna.gui.component.TextBox;
@@ -48,7 +49,7 @@ public class AddSaleView extends Window {
 
     //
     public AddSaleView(StockItem item, Window parent) {
-        super("Stock Number: " + item.getStockId());
+        super("Add New [ Stock Number: " + item.getStockId()+" ]");
 
         //this should not happen
         if (item == null) {
@@ -80,6 +81,7 @@ public class AddSaleView extends Window {
         TerminalSize size = new TerminalSize(15, 1);
 
         //Row 1
+        __pnlLeft.addComponent(new EmptySpace());
         Panel row1 = new Panel(Panel.Orientation.HORISONTAL);
         Label lblItemname = new Label("Item Name : ");
         lblItemname.setPreferredSize(size);
@@ -102,6 +104,7 @@ public class AddSaleView extends Window {
 
         //Row 3
         Panel row3 = new Panel(Panel.Orientation.HORISONTAL);
+       
         Label lblStockLevel = new Label("Stock Level");
         lblStockLevel.setAlignment(Label.Alignment.TOP_LEFT);
         lblStockLevel.setPreferredSize(size);
@@ -111,25 +114,28 @@ public class AddSaleView extends Window {
         this.__pnlLeft.addComponent(row3);
 
         //Row 4         
-        Panel pnlSaleFields = new Panel(new Border.Invisible(), Panel.Orientation.VERTICAL);
-        Panel row4 = new Panel(new Border.Bevel(true), Panel.Orientation.HORISONTAL);
+        Panel pnlSaleFields = new Panel(Panel.Orientation.VERTICAL);
+        pnlSaleFields.addComponent(new EmptySpace());
+        Panel row4 = new Panel(Panel.Orientation.HORISONTAL);
         Label lblSalePrice = new Label("Sale Price");
         lblSalePrice.setPreferredSize(size);
         lblSalePrice.setAlignment(Label.Alignment.TOP_LEFT);
         row4.addComponent(lblSalePrice);
-        this.__txtSalePrice = new TextBox("", 30);
+        this.__txtSalePrice = new TextBox("", 20);
         row4.addComponent(this.__txtSalePrice);
         pnlSaleFields.addComponent(row4);
 
         //Row 5
-        Panel row5 = new Panel(new Border.Bevel(true), Panel.Orientation.HORISONTAL);
+        pnlSaleFields.addComponent(new EmptySpace());
+        Panel row5 = new Panel(Panel.Orientation.HORISONTAL);
         Label lblItemWeight = new Label("Item Weight[optional]");
         lblItemWeight.setPreferredSize(size);
         lblItemWeight.setAlignment(Component.Alignment.TOP_LEFT);
         row5.addComponent(lblItemWeight);
-        this.__txtWeight = new TextBox("", 30);
+        this.__txtWeight = new TextBox("", 20);
         row5.addComponent(this.__txtWeight);
         pnlSaleFields.addComponent(row5);
+        pnlSaleFields.addComponent(new EmptySpace());
 
         //Create a button panel which is row 6 in an horizontal arrangement
         Panel row6 = new Panel(Panel.Orientation.HORISONTAL);
@@ -154,6 +160,10 @@ public class AddSaleView extends Window {
          
 
         //add to panel
+        Label btnEmptySpace= new Label("");
+        btnEmptySpace.setAlignment(Component.Alignment.TOP_LEFT);
+        btnEmptySpace.setPreferredSize(size);
+        row6.addComponent(btnEmptySpace);
         row6.addComponent(this.__btnBack);
         row6.addComponent(this.__btnAdd);
       

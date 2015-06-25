@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import structures.IError;
 import structures.ItemBasket;
+import views.Console;
 
 /**
  *
@@ -26,12 +27,14 @@ public class BasketManager extends IError implements InterfaceModel<ItemBasket>{
 
     void update(ItemBasket item, int number) {
         this.__isDone=false;
-        
-       
-            ItemBasket tempItem = this.getItemById(item.getItemId());
-            if(tempItem !=null){
-               tempItem.setNoOfItems( tempItem.getNoOfItems()+  number);
+      
+        if(this.isExist(item)){
+     
+            ItemBasket tempItem = this.getItem(item);
                
+            if(tempItem !=null){
+               Console.WriteLn("Item Number = "+  tempItem.getCurrentPrices()); 
+               tempItem.setNoOfItems(tempItem.getNoOfItems()+ number);               
                 for(int i=0; i < this.__list.size(); i++)
                     {
                         ItemBasket item2temp = this.__list.get(i);
@@ -43,7 +46,7 @@ public class BasketManager extends IError implements InterfaceModel<ItemBasket>{
                     }
                
             }
-        
+        }
         
        }
 
@@ -80,15 +83,16 @@ public class BasketManager extends IError implements InterfaceModel<ItemBasket>{
         }
     }
 
+    //The item exists if they are both same prices
     @Override
     public boolean isExist(ItemBasket t) {
+         
         if(this.__list !=null){
             
             
-           for(Iterator<ItemBasket> it= this.__list.iterator(); it.hasNext();)
-            {
-                ItemBasket item = it.next();
-                if(item.getItemId().equalsIgnoreCase(t.getItemId())){
+            for (ItemBasket item : this.__list) {
+                if(item.getItemId().equalsIgnoreCase(t.getItemId())
+                        && item.getCurrentPrices()== t.getCurrentPrices()){
                    
                     return true;
                 }
@@ -105,11 +109,24 @@ public class BasketManager extends IError implements InterfaceModel<ItemBasket>{
         
         if(this.isExist(item))
         {
-             for(Iterator<ItemBasket> it= this.__list.iterator(); it.hasNext();)
-            {
-                ItemBasket tempItem = it.next();
+            for (ItemBasket tempItem : this.__list) {
                 if(item.getItemId().equalsIgnoreCase(tempItem.getItemId())){
-                   return  tempItem ;
+                    return  tempItem ;
+                }
+            }
+            
+        }
+        return null;
+     }
+    
+     public ItemBasket getItem(ItemBasket item) {
+      
+        
+        if(this.isExist(item))
+        {
+            for (ItemBasket tempItem : this.__list) {
+                if(item.getItemId().equalsIgnoreCase(tempItem.getItemId()) && item.getCurrentPrices() == tempItem.getCurrentPrices()){
+                    return  tempItem ;
                 }
             }
             

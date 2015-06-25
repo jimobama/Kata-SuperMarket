@@ -12,6 +12,10 @@ import controllers.KataSuperMarketController;
 import java.util.ArrayList;
 import structures.ItemBasket;
 import structures.ItemGroup;
+import structures.ItemPromo;
+import structures.SaleItemGroup;
+import structures.SaleItemPromotion;
+import views.Console;
 
 
 /**
@@ -25,12 +29,14 @@ public class KataSuperMarketModel extends IModel {
     private final SaleManager __saleManager;
     private final ItemGroupManager __itemGroupManager;
     private final BasketManager __backetManager;
+    private final SaleItemGroupManager __saleItemGroupManager;
 
     public KataSuperMarketModel() {
         this.__stockManager = new StockManager(null);
         this.__saleManager = new SaleManager(null);
         __itemGroupManager= new  ItemGroupManager();
         __backetManager= new BasketManager();
+        __saleItemGroupManager= new SaleItemGroupManager();
     }
 
     @Override
@@ -187,17 +193,20 @@ public class KataSuperMarketModel extends IModel {
     public boolean isBasketItemUpdate(ItemBasket item) {
        
         boolean okay=false;
-        if(this.__backetManager.isExist(item))
-        {
+        if(this.__backetManager.isExist(item))        {
            this.__backetManager.update(item,1); 
            if(this.__backetManager.isDone()){
                okay=true;
+           }else{
+               this.setError("Could not update item into basket");
            }
         }else{
-            this.__backetManager.add(item);
+             this.__backetManager.add(item);
              if(this.__backetManager.isDone()){
                okay=true;
-           }
+           }else{
+                 this.setError("Could not add item to basket");
+             }
         }
         return okay;
      };
@@ -220,20 +229,65 @@ public class KataSuperMarketModel extends IModel {
 
     public boolean isStockItemDeletedByID(String stockID) {
         this.__stockManager.remove(new StockItem(stockID));
-        if(this.__stockManager.isDone())
-        {
-            return true;
-        }
-        return false;
+        return this.__stockManager.isDone();
     }
 
     public boolean isSaleItemDeletedById(String itemRef) {
         this.__saleManager.remove(new SaleItem(itemRef));
-        if(this.__saleManager.isDone())
-        {
-            return true;
+        return this.__saleManager.isDone();
+    }
+
+    public void addBasketItemIntoGroup(String groupID, ItemBasket itemB) {
+        SaleItemPromotion sp= new SaleItemPromotion(groupID,itemB);
+        sp.setNoOfItems(itemB.getNoOfItems());
+        
+      //create a new cell item group
+        SaleItemGroup group = new SaleItemGroup(groupID);
+     
+        if(!this.__saleItemGroupManager.isExist(group)){      
+             ItemGroup itemGroup= this.__itemGroupManager.getItemById(group.getGroupId());
+             if(itemGroup.hasPromotion()){
+                 // Console.WriteLn("Group Item Promo Amount £" +(itemGroup.getPromotion().getPriceBase()));//debug
+                  group.setPromo(itemGroup.getPromotion());
+             }
+             group.add(sp);
+             
+            if(group.isDone()){ 
+              this.__saleItemGroupManager.add(group);
+                 if(this.__saleItemGroupManager.isDone()){       
+                     this.setError("Added Successfully");
+               
+                    }
+              }
+          
+        }else{            
+            //else if the group exists 
+            group =  this.__saleItemGroupManager.getItemById(groupID);
+            if(group !=null){
+                if(!group.isExist(sp)){
+                    group.add(sp);
+                }else{
+                    group.update(sp);
+                }
+               
+                this.__saleItemGroupManager.update(group);
+            }
+            
         }
-        return false;
+        
+     }
+
+    public ArrayList<SaleItemGroup> getItemSaleGroups() {
+        return this.__saleItemGroupManager.getList();
+    }
+
+    public void clearItemSaleGroup() {
+        this.__saleItemGroupManager.clear();
+      }
+
+    public ItemPromo getPromotionByItemId(String itemId) {
+        
+       return this.__itemGroupManager.getPromotionBySaleId(itemId);
     }
     
 

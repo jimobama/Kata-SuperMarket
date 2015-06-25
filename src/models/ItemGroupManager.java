@@ -9,6 +9,7 @@ import structures.IError;
 import structures.ItemGroup;
 import java.util.ArrayList;
 import java.util.Iterator;
+import structures.ItemPromo;
 import structures.SaleItem;
 
 /**
@@ -17,13 +18,13 @@ import structures.SaleItem;
  */
 public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup> {
 
-    private static ArrayList<ItemGroup> __list;
+    private ArrayList<ItemGroup> __list;
     private final Database __db;
     private boolean __isDone=false;
 
     public  ItemGroupManager()
      {
-       ItemGroupManager.__list= new ArrayList<>();
+      this.__list= new ArrayList<>();
       this.__db= new Database("itemgroup.txt");
       this.load();
      }
@@ -37,7 +38,7 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
          __isDone=false;
 
         if (!this.isExist(t)) {
-            this.__isDone= ItemGroupManager.__list.add(t);
+            this.__isDone= this.__list.add(t);
            
             this.__db.SaveObject(__list);
             
@@ -78,20 +79,20 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
     @Override
     public ItemGroup getItemById(String id) {
 
-        ItemGroup itemG = new ItemGroup(id);
-       
-        if (this.isExist(itemG)) {
+        ItemGroup group = new ItemGroup(id);
+        this.load();
+        if (this.isExist(group)) {
             for (ItemGroup itemTemp : __list) {
                 if (itemTemp.getSaleProGroupID().trim().equalsIgnoreCase(id.trim()))
                 {
-                    itemG=itemTemp;
+                     group=itemTemp;
                     break;
                 }
             }
         }else{
-            itemG=null;
+            group=null;
         }
-        return itemG;
+        return  group;
     }
 
     private void load() {
@@ -166,14 +167,12 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
         ItemGroup result=null;
         if(__list !=null){
             
-            for(Iterator<ItemGroup> it= __list.iterator(); it.hasNext();){
-                
-                ItemGroup group = it.next();
-                 if(group.isExist(new SaleItem(saleID)))
-                 {
+            for (ItemGroup group : __list) {
+                if(group.isExist(new SaleItem(saleID)))
+                {
                     result=  group;
                     break;
-                 }
+                }
             }
                 
         }
@@ -186,6 +185,15 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
             return group.getSaleProGroupID();
         }
         return null;        
+    }
+
+    ItemPromo getPromotionBySaleId(String itemId) {
+       
+          ItemGroup group = getItemGroupBySaleId(itemId);
+          if(group.hasPromotion()){
+              return group.getPromotion();
+          }
+          return null;        
     }
         
 }

@@ -19,7 +19,9 @@ import com.googlecode.lanterna.terminal.TerminalSize;
 import controllers.KataSuperMarketController;
 import java.util.ArrayList;
 import structures.ItemBasket;
+import structures.ItemPromo;
 import structures.SaleItem;
+import structures.SaleItemGroup;
 import structures.StockItem;
 
 /**
@@ -236,14 +238,31 @@ class ShoppingCenterView extends Window {
             IView.report(this.__parent.getOwner(),1, "The item number did not exists");           
         }else{
             //add the item to the Basket List 
-           ItemBasket basketItem= new ItemBasket();
-           basketItem.setItemId(item.getSaleID());
-           basketItem.setCurrentPrices(item.getSalePrice());
+            
+           if(item.getWeight() > 0.0){
+            
+              String strcurrent_weight;
+               strcurrent_weight = "0";
+              try{
+                 strcurrent_weight=  InputDialog.showMessageBox(this.__parent.getOwner(),"Input","Item Weight");
+                 
+                 double current_weight= Double.parseDouble(strcurrent_weight);
+                 
+                 double currentP= (item.getSalePrice() *current_weight )/ item.getWeight();
+                //add to basket
+                 item.setSalePrice(currentP);
+                 item.setWeight(current_weight);
+                 this.createBasketItemFrom(item);
+                
            
-           controller.addBasketItem(basketItem);
-           int basketCount= controller.getBasketCount();
-           
-           this.__btnGotoBasket.setText("View Basket ["+ basketCount+"]");
+              }catch(NumberFormatException err){
+                  IView.report(this.__parent.getOwner(),1, "Invalid item purchase weight entered ");
+                  return ;
+              }
+              
+           }else{
+           this.createBasketItemFrom(item);
+           }
         }
        this.__parent.getOwner().showWindow(this);
         
@@ -284,5 +303,39 @@ class ShoppingCenterView extends Window {
           KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
            return controller.getGroupIdBySaleItemId(saleItemId);
        }
+
+    void addBasketItemToGroup(String groupID, ItemBasket itemB) {
+         KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();         
+         controller.addBasketItemToGroup(groupID, itemB);   
+          
+    }
+
+    ArrayList<SaleItemGroup> getSaleItemGroups() {
+       KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+       return controller.getItemSaleGroups();
+      }
+
+    void clearSaleItemGroups() {
+       KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+       controller.clearSaleItemGroups();
+    }
+
+    ItemPromo getPromotionByItemId(String itemId) {
+        KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+        return controller.getPromotionByItemId(itemId);
+    }
+
+    private void createBasketItemFrom(SaleItem item) {
+               KataSuperMarketController controller = (KataSuperMarketController) this.__parent.getController();
+                ItemBasket basketItem= new ItemBasket();
+                basketItem.setItemId(item.getSaleID());
+                basketItem.setCurrentPrices(item.getSalePrice());
+                basketItem.setWeight(item.getWeight());
+                
+
+                controller.addBasketItem(basketItem);
+                int basketCount= controller.getBasketCount();
+
+                this.__btnGotoBasket.setText("View Basket ["+ basketCount+"]"); }
 
 }

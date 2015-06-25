@@ -246,7 +246,7 @@ class NewPromoView extends Window {
                case ItemPromo.ITEM_BASE:
                {
                  message="Enter a valid item base input number";
-                 promo.setItemBase(Double.parseDouble(this.__txtItemBase.getText()));
+                 promo.setItemBase(Integer.parseInt(this.__txtItemBase.getText()));
                  break;  
                }
                case ItemPromo.PERCENTAGE_BASE:

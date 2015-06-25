@@ -15,13 +15,13 @@ import java.util.Iterator;
  */
 public class SaleManager extends IError implements InterfaceModel<SaleItem> {
 
-    private static ArrayList<SaleItem> __itemlist = new ArrayList<>();
+    private  ArrayList<SaleItem> __itemlist = new ArrayList<>();
    private final Database file;
     private boolean __isDone=false;
   
     SaleManager(ArrayList<SaleItem> list) {
         if (list != null) {
-            SaleManager.__itemlist = list;
+            __itemlist = list;
         }
         file= new Database("saleList.txt");
         this.load();
@@ -42,7 +42,7 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
     public void add(SaleItem t) {
         __isDone=false;
         if (!this.isExist(t)) {
-            SaleManager.__itemlist.add(t);
+            __itemlist.add(t);
             file.SaveObject(__itemlist);
            
             if(this.file.IsSave()){
@@ -57,7 +57,7 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
     public void remove(SaleItem item) {
         this.__isDone=false;
         if (this.isExist(item)) {
-            for (Iterator<SaleItem> it = SaleManager.__itemlist.iterator(); it.hasNext();) {
+            for (Iterator<SaleItem> it =__itemlist.iterator(); it.hasNext();) {
                 SaleItem item_t = it.next();
                 if (item_t.isEqual(item)) {
                     it.remove();
@@ -81,7 +81,7 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
 
         if (t != null) {
 
-            for (Iterator<SaleItem> it = SaleManager.__itemlist.iterator(); it.hasNext();) {
+            for (Iterator<SaleItem> it = __itemlist.iterator(); it.hasNext();) {
                 SaleItem item_t = it.next();
                 if (item_t.isEqual(t)) {
                     okay = true;
@@ -101,7 +101,7 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
 
         SaleItem item = new SaleItem(id);
         if (this.isExist(item)) {
-            for (SaleItem item_t : SaleManager.__itemlist) {
+            for (SaleItem item_t :__itemlist) {
                 if (item_t.isEqual(item)) {
                     item = item_t;
                     break;
@@ -131,7 +131,7 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
 
         if (stockItem != null) {
            
-            for (SaleItem item_t : SaleManager.__itemlist) {
+            for (SaleItem item_t :__itemlist) {
                 if (item_t.getStockID().trim().equalsIgnoreCase(stockItem.getStockID().trim())) 
                 {
                     okay = true;
@@ -145,6 +145,8 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
         
     }
     
+    
+   
    
 
 }

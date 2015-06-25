@@ -12,7 +12,9 @@ import views.KataSuperMarketView;
 import models.IModel;
 import structures.ItemBasket;
 import structures.ItemGroup;
+import structures.ItemPromo;
 import structures.SaleItem;
+import structures.SaleItemGroup;
 import structures.StockItem;
 import views.IView;
 
@@ -204,7 +206,7 @@ public class KataSuperMarketController implements InterfaceController {
         if(this.__model.isBasketItemUpdate(item)){
             IView.report(this.__view.getOwner(),0,"The Basket Item as be successfully added and updated");
         }else{
-             IView.report(this.__view.getOwner(),1,this.__model.getError());
+             IView.report(this.__view.getOwner(),2,this.__model.getError());
         }
      }
 
@@ -235,6 +237,25 @@ public class KataSuperMarketController implements InterfaceController {
         
         return this.__model.isSaleItemDeletedById(itemRef);
        }
+
+    public void addBasketItemToGroup(String groupID, ItemBasket itemB) {
+        
+        this.__model.addBasketItemIntoGroup(groupID,itemB);
+       
+     }
+
+    public ArrayList<SaleItemGroup> getItemSaleGroups() {
+        
+        return this.__model.getItemSaleGroups();
+       }
+
+    public void clearSaleItemGroups() {
+        this.__model.clearItemSaleGroup();
+     }
+
+    public ItemPromo getPromotionByItemId(String itemId) {
+      return this.__model.getPromotionByItemId(itemId);
+    }
     
 
 }

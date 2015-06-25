@@ -18,7 +18,7 @@ public class StockManager extends IError implements InterfaceModel<StockItem> {
     //list of items stocked
     private static ArrayList<StockItem> __stocks_list = new ArrayList<>();
     private boolean __isDone;
-    private Database file;
+    private final Database file;
 
    public  StockManager(ArrayList<StockItem> _stocks) {
         file = new Database("stocks.txt");
@@ -113,7 +113,6 @@ public class StockManager extends IError implements InterfaceModel<StockItem> {
         StockManager m = new StockManager(null);
         return m.getItemById(id);
     }
-
     boolean isDone() {
 
         return __isDone;
