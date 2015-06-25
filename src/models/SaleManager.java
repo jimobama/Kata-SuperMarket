@@ -120,7 +120,8 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
         return m.getItemById(id);
     }
 
-  ArrayList<SaleItem>  getList() {
+    @Override
+  public ArrayList<SaleItem>  getList() {
         return __itemlist;
       
    }
@@ -144,6 +145,10 @@ public class SaleManager extends IError implements InterfaceModel<SaleItem> {
         return okay; 
         
     }
+
+    @Override
+    public void update(SaleItem t) {
+     }
     
     
    

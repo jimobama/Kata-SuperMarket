@@ -168,7 +168,7 @@ public class SaleGroupView extends Window {
          this.lblGroupId.setText(_itemGroup.getSaleProGroupID());
          this.lblGroupName.setText(_itemGroup.getGroupname());
          
-         ArrayList<String> saleIDs=  _itemGroup.getList();
+         ArrayList<String> saleIDs=  _itemGroup.getListString();
          if(saleIDs !=null)
          {
             for(int i=0; i < saleIDs.size(); i++) 

@@ -147,7 +147,7 @@ public class KataSuperMarketModel extends IModel {
 
     public ArrayList<ItemGroup> getItemGroupList() {
         
-        return this.__itemGroupManager.getItemGroupList();
+        return this.__itemGroupManager.getList();
      }
 
     public boolean addItemIntoGroup(String itemRef, String groupRef) 

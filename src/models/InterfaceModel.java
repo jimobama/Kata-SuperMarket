@@ -5,19 +5,19 @@
  */
 package models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Obaro
  * @param <T>
  */
 public interface InterfaceModel<T> {
-
     void add(T t);
-
     void remove(T t);
-
-    boolean isExist(T t);
-
+    void update(T t);
+    ArrayList<T>  getList();
+    boolean isExist(T t); 
     T getItemById(String id);
 
 }

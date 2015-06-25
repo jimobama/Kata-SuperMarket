@@ -118,10 +118,14 @@ public class StockManager extends IError implements InterfaceModel<StockItem> {
         return __isDone;
     }
 
-    ArrayList<StockItem> getList() {
+    public ArrayList<StockItem> getList() {
        
         return StockManager.__stocks_list;
     }
+
+    @Override
+    public void update(StockItem t) {
+     }
 
   
 

@@ -16,7 +16,7 @@ import structures.SaleItem;
  *
  * @author Obaro
  */
-public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup> {
+public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup>  {
 
     private ArrayList<ItemGroup> __list;
     private final Database __db;
@@ -103,7 +103,8 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
         }
     }
 
-    ArrayList<ItemGroup> getItemGroupList() {
+    @Override
+    public ArrayList<ItemGroup> getList() {
         
         return __list;
      }
@@ -195,5 +196,6 @@ public class ItemGroupManager extends IError implements InterfaceModel<ItemGroup
           }
           return null;        
     }
+
         
 }

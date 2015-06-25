@@ -38,7 +38,8 @@ public class SaleItemGroup extends IError implements InterfaceModel<SaleItemProm
       
       
 
-    public ArrayList<SaleItemPromotion> getBasketItems() {
+   @Override
+    public ArrayList<SaleItemPromotion> getList() {
         return __basketItems;
     }
 
@@ -139,6 +140,7 @@ public class SaleItemGroup extends IError implements InterfaceModel<SaleItemProm
     }
 
 
+   @Override
     public void update(SaleItemPromotion sp) {
         if(this.isExist(sp)){
             
@@ -152,6 +154,8 @@ public class SaleItemGroup extends IError implements InterfaceModel<SaleItemProm
         }
         
     }
+
+  
    
 
   

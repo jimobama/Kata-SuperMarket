@@ -14,7 +14,7 @@ import models.SaleManager;
  *
  * @author Obaro
  */
-public class ItemGroup extends IError implements InterfaceModel<SaleItem>,java.io.Serializable {
+public class ItemGroup extends IError implements InterfaceModel<SaleItem>, java.io.Serializable {
 
     private ArrayList<String> __saleItemIDs;
     private String __saleProGroupID;
@@ -198,9 +198,23 @@ public class ItemGroup extends IError implements InterfaceModel<SaleItem>,java.i
         return 0;
     }
 
-    public ArrayList<String> getList() {
+   
+    public ArrayList<String> getListString() {
         return  __saleItemIDs;
       }
+
+    
+    @Override
+    public void update(SaleItem t) {
+       
+    }
+
+    @Override
+    public ArrayList<SaleItem> getList() {
+        return null;
+    }
+
+   
 
    
    

@@ -143,11 +143,17 @@ public class BasketManager extends IError implements InterfaceModel<ItemBasket>{
         }
      }
 
-    ArrayList<ItemBasket> getList() {
+    @Override
+    public ArrayList<ItemBasket> getList() {
         if( this.__list ==null){
              this.__list = new ArrayList<>();   
         }
         return this.__list ;
        }
+
+    @Override
+    public void update(ItemBasket t) {
+        
+    }
     
 }

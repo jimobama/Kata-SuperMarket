@@ -86,7 +86,8 @@ public class SaleItemGroupManager implements InterfaceModel<SaleItemGroup> {
         return result;
      }
 
-    void update(SaleItemGroup group) {
+    @Override
+    public void update(SaleItemGroup group) {
         this.__isDone=false;
         
         if(group !=null && this.isExist(group)){
@@ -108,7 +109,8 @@ public class SaleItemGroupManager implements InterfaceModel<SaleItemGroup> {
         return this.__isDone;
     }
 
-    ArrayList<SaleItemGroup> getList() {
+    @Override
+    public ArrayList<SaleItemGroup> getList() {
         if(this.__list==null){
             this.__list= new ArrayList<>();
         }
