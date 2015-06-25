@@ -22,7 +22,7 @@ import com.googlecode.lanterna.terminal.TerminalSize;
 class  InputDialog  extends Window{
 
      private TextBox __txtValue;
-    static String showMessageBox(GUIScreen owner, String title, String item_Weight) {
+     static String showMessageBox(GUIScreen owner, String title, String item_Weight) {
     
        InputDialog  dialog= new InputDialog(title,item_Weight);
        owner.showWindow(dialog, GUIScreen.Position.CENTER);

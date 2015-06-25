@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+This is a central model where all controller request most pass before going to the children models insided the main model
  */
 package models;
 
@@ -15,7 +13,6 @@ import structures.ItemGroup;
 import structures.ItemPromo;
 import structures.SaleItemGroup;
 import structures.SaleItemPromotion;
-import views.Console;
 
 
 /**

@@ -20,7 +20,7 @@ public interface IView extends InterfaceObserver {
     public static final int WARNING = 1;
     public static final int ERROR = 2;
 
-    void setModel(Object model);
+    
 
     void show();
 

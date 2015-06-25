@@ -5,8 +5,6 @@
  */
 package views;
 
-import com.googlecode.lanterna.gui.Action;
-import com.googlecode.lanterna.gui.Border;
 import com.googlecode.lanterna.gui.Component;
 import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.Window;
@@ -139,22 +137,12 @@ public class AddSaleView extends Window {
 
         //Create a button panel which is row 6 in an horizontal arrangement
         Panel row6 = new Panel(Panel.Orientation.HORISONTAL);
-        this.__btnAdd = new Button("Save", new Action() {
-
-            @Override
-            public void doAction() {
-                onAddClicked();
-            }
-
+        this.__btnAdd = new Button("Save", () -> {
+            onAddClicked();
         });
 
-        this.__btnBack = new Button("Back", new Action() {
-
-            @Override
-            public void doAction() {
-                onBackClicked();
-            }
-
+        this.__btnBack = new Button("Back", () -> {
+            onBackClicked();
         });
     
          
@@ -261,11 +249,7 @@ public class AddSaleView extends Window {
             messsage = "The profit you will make is [£" + profit + "] for each item sold are you satisfy with that?";
         }
         DialogResult result = MessageBox.showMessageBox(this.getOwner(), "Warning", messsage, DialogButtons.YES_NO);
-        if(result == DialogResult.NO)
-        {
-            return false;
-        }
-        return true;
+        return result != DialogResult.NO;
         
     }
 

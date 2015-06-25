@@ -18,6 +18,7 @@ import com.googlecode.lanterna.gui.component.TextBox;
 import com.googlecode.lanterna.terminal.TerminalSize;
 import services.Helper;
 import structures.ItemPromo;
+import structures.ItemPromoOperation;
 
 /**
  *
@@ -234,7 +235,7 @@ class NewPromoView extends Window {
 
     private void onAddPromoClicked() {
          this.close();
-        ItemPromo promo = new ItemPromo(this.lblPromoId.getText());
+        ItemPromo promo = new ItemPromoOperation(this.lblPromoId.getText());
         String message="";
        
          promo.setType(PromoType);

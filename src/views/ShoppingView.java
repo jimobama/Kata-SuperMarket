@@ -16,10 +16,7 @@ class ShoppingView implements IView {
 
     private KataSuperMarketController __controller;
 
-    @Override
-    public void setModel(Object model) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public void show() {

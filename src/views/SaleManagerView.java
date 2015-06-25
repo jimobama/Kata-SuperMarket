@@ -27,12 +27,6 @@ class SaleManagerView extends SaleManagerCommandView implements IView {
     }
 
 
-
-    @Override
-    public void setModel(Object model) {
-     
-    }
-
     @Override
     public void show() {
       if(this.__parent !=null){

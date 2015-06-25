@@ -3,7 +3,6 @@
  */
 package views;
 
-import com.googlecode.lanterna.gui.GUIScreen;
 import com.googlecode.lanterna.gui.GUIScreen.Position;
 import com.googlecode.lanterna.gui.component.Button;
 import controllers.InterfaceController;
@@ -35,10 +34,7 @@ public class KataSuperMarketView extends KataSuperMarketCommandView implements I
 
     }
 
-    @Override
-    public void setModel(Object model) {
-    }
-
+  
     @Override
     public void attach(InterfaceController controller) {
         this.__controller = (KataSuperMarketController) controller;

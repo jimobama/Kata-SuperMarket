@@ -5,19 +5,16 @@
  */
 package controllers;
 
-import models.IModel;
-import views.IView;
-
 /**
  *
  * @author Obaro
+ * @param <TModel>
  */
-public interface InterfaceController {
+public interface InterfaceController<TModel, TView> {
 
     void run();
-
-    public abstract IModel getModel();
-
-    public abstract IView getView();
+    public abstract TModel getModel();
+    public abstract TView getView();
+    
 
 }
