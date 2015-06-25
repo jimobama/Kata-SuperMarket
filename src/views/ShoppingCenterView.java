@@ -257,7 +257,7 @@ class ShoppingCenterView extends Window {
            
               }catch(NumberFormatException err){
                   IView.report(this.__parent.getOwner(),1, "Invalid item purchase weight entered ");
-                  return ;
+                  
               }
               
            }else{
